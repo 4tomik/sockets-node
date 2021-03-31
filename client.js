@@ -30,8 +30,6 @@ const connect = (host, port) => {
       socket.write(message);
       if (message === END) {
         socket.end();
-        console.log("Disconnected");
-        process.exit(0);
       }
     });
 
@@ -41,6 +39,11 @@ const connect = (host, port) => {
   });
 
   socket.on("error", (err) => error(err.message));
+
+  socket.on("close", () => {
+    console.log("Disconnected");
+    process.exit(0);
+  });
 };
 
 const main = () => {

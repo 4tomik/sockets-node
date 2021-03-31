@@ -32,7 +32,6 @@ const listen = (port) => {
         console.log(`Username ${message} set for connection ${remoteSocket}`);
         connections.set(socket, message);
       } else if (message === END) {
-        console.log(`Connection with ${remoteSocket} closed`);
         connections.delete(socket);
         socket.end();
       } else {
@@ -42,7 +41,11 @@ const listen = (port) => {
       }
     });
 
-    socket.on("error", (err) => error(err.message));
+    socket.on("error", (err) => console.error(err));
+
+    socket.on("close", () => {
+      console.log(`Connection with ${remoteSocket} closed`);
+    });
   });
 
   server.listen({ port, host }, () => {
