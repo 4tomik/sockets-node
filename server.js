@@ -49,7 +49,7 @@ const listen = (port) => {
   });
 
   server.listen({ port, host }, () => {
-    console.log("Listening on port 8000");
+    console.log(`Listening on port ${port}`);
   });
 
   server.on("error", (err) => error(err.message));
